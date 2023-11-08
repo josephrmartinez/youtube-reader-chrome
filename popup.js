@@ -1,7 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
     const taskInput = document.getElementById('taskInput');
     const generateButton = document.getElementById('generateButton');
+
+    // Load the persisted text when the popup is opened
+    chrome.storage.local.get(['persistedText'], function(result) {
+      const persistedText = result.persistedText;
+      updatePopupText(persistedText);
+  });
   
+
     generateButton.addEventListener('click', function() {
       const task = taskInput.value;
       chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
@@ -36,7 +43,10 @@ document.addEventListener('DOMContentLoaded', function() {
           // Handle the response from your server...
           const completionText = data.completion.text;
 
-          updatePopupText(completionText)
+          // Save the text to local storage
+          chrome.storage.local.set({ 'persistedText': completionText }, function() {
+            updatePopupText(completionText);
+          });
         })
         .catch(error => {
           console.error('Error:', error);
