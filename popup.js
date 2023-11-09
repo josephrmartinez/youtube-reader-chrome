@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const taskInput = document.getElementById('taskInput');
     const generateButton = document.getElementById('generateButton');
     const trashButton = document.getElementById('trash')
+    
 
     trashButton.addEventListener('click', function(){
       chrome.storage.local.remove('persistedText', function() {
@@ -9,6 +10,55 @@ document.addEventListener('DOMContentLoaded', function() {
         updatePopupText("");
       })
     })
+
+
+    const clipboardButton = document.getElementById('clipboard');
+
+    clipboardButton.addEventListener('click', function(){
+      chrome.storage.local.get(['persistedText'], function(result) {
+        const persistedText = result.persistedText;
+        if (persistedText) {
+          const extractedText = extractTextFromHTML(persistedText);
+
+          // Use the Clipboard API to copy the text to the clipboard
+          navigator.clipboard.writeText(extractedText)
+            .then(() => {
+              alert('Text copied!');
+            })
+            .catch((err) => {
+              console.error('Unable to copy text to clipboard', err);
+            });
+        }
+      })   
+    })
+
+    function extractTextFromHTML(htmlString) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(htmlString, 'text/html');
+  
+      // Get all text nodes within the document body
+      const textNodes = document.createTreeWalker(
+          doc.body,
+          NodeFilter.SHOW_TEXT,
+          null,
+          false
+      );
+  
+      let extractedText = '';
+  
+      // Iterate through text nodes and concatenate their text content
+      while (textNodes.nextNode()) {
+          extractedText += textNodes.currentNode.nodeValue.trim() + ' ';
+      }
+      return extractedText.trim();
+  }
+  
+  // Example usage with your provided HTML string
+  const htmlString = "<h2>Materials List for Carpet Installation</h2>\n<ul>...</ul>\n<p>Rental equipment from Home Depot:</p>\n<ul>...</ul>";
+  
+  const extractedText = extractTextFromHTML(htmlString);
+  console.log(extractedText);
+  
 
     // Load the persisted text when the popup is opened
     chrome.storage.local.get(['persistedText'], function(result) {
