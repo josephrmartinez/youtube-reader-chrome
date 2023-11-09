@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Assuming you have an element with the ID "popupText" to display the text
         const popupTextElement = document.getElementById('popupText');
         if (popupTextElement) {
-        popupTextElement.textContent = text;
+        popupTextElement.innerHTML = text;
         }
     }
 

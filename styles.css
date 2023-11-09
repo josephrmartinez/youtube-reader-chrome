@@ -1,21 +1,40 @@
+
+
 body{
     width: 450px;
-    height: 100vh;
+    max-height: 980px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
+
+
+.input-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+
+img{
+    width: 24px;
+    height: 24px;
+}
+
 .input-container {
     display: flex;
-    width: 400px;
+    width: 330px;
     height: 35px;
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     border-radius: 5px;
     padding: 5px;
     margin-top: 5px;
-    margin-bottom: 15px;
+    
   }
 
   
@@ -32,21 +51,41 @@ body{
     flex: 1;
   }
   
+  .small-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.small-button:hover{
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.small-button:active{
+    background-color: rgb(229, 229, 229);
+}
+
   button {
-    background-color: rgb(5, 146, 99);
+    display: flex;
+    justify-content: center;
+    background-color: rgb(12, 169, 117);
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     border: none;
-    width: 100px;
+    width: 30px;
+    height: 30px;
     border-radius: 5px;
-    padding: 10px 15px;
-    cursor: pointer;
-    color:rgb(255, 255, 255);
-    font-size: 16px;
-    letter-spacing: 0.8px;
-    font-weight: 500;
+    cursor: pointer;    
   }
 
 #popupText{
+    max-height: 400px;
+    width: 100%;
     overflow-y: scroll;
     padding-left: 12px;
     padding-right: 12px;
@@ -79,7 +118,7 @@ h1 {
   }
   
   li {
-    margin-bottom: 1rem;
+    margin-bottom: .2rem;
     color:rgb(42, 59, 59);
     font-family:Georgia, 'Times New Roman', Times, serif;
   }
