@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "youtube reader",
-  "version": "1.25",
+  "version": "1.29",
   "description": "video to blog",
   "icons": {
     "16": "images/icon-16.png",
@@ -10,7 +10,7 @@
     "96": "images/icon-96.png"
   },
   "permissions": [
-    "activeTab", "storage"
+    "activeTab", "storage", "tabs"
   ],
   "action": {
     "default_popup": "popup.html",
@@ -23,9 +23,7 @@
   "content_scripts": [
     {
       "js": ["scripts/content.js"],
-      "matches": [
-        "https://www.youtube.com/watch?v=*", "http://www.youtube.com/*" 
-      ]
+      "matches": ["*://*.youtube.com/*"]
     }
   ]
 }

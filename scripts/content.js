@@ -1,10 +1,3 @@
-
-console.log("extension loaded")
-
-alert("this is outside of the event listener")
-
-document.body.style.backgroundColor = "orange";
-
   const textField = document.createElement("input");
   textField.type = "text";
   textField.id = "myTextField"; // Add an ID to access this element later
