@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "youtube reader",
-  "version": "1.32",
+  "version": "1.33",
   "description": "video to blog",
   "icons": {
     "16": "images/icon-16.png",

@@ -17,6 +17,7 @@ body{
     align-items: center;
     width: 100%;
     margin-bottom: 15px;
+    margin-top: 15px;
 }
 
 
@@ -28,17 +29,12 @@ img{
 .input-container {
     display: flex;
     width: 330px;
-    height: 35px;
+    height: 55px;
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     border-radius: 5px;
-    padding: 5px;
-    margin-top: 5px;
-    
   }
 
-  
-  
   input[type="text"] {
     border: none;
     outline: none;
@@ -74,11 +70,13 @@ img{
   button {
     display: flex;
     justify-content: center;
+    align-items: center;
     background-color: rgb(12, 169, 117);
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     border: none;
-    width: 30px;
-    height: 30px;
+    width: 34px;
+    height: 34px;
+    margin-right: 10px;
     border-radius: 5px;
     cursor: pointer;    
   }

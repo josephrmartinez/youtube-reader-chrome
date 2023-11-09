@@ -1,13 +1,25 @@
 document.addEventListener('DOMContentLoaded', function() {
     const taskInput = document.getElementById('taskInput');
     const generateButton = document.getElementById('generateButton');
+    const trashButton = document.getElementById('trash')
+
+    trashButton.addEventListener('click', function(){
+      chrome.storage.local.remove('persistedText', function() {
+        // After removing the item, update the popup text
+        updatePopupText("");
+      })
+    })
 
     // Load the persisted text when the popup is opened
     chrome.storage.local.get(['persistedText'], function(result) {
       const persistedText = result.persistedText;
-      updatePopupText(persistedText);
+      if (persistedText) {
+        updatePopupText(persistedText);
+      }
+      
   });
   
+
 
     generateButton.addEventListener('click', function() {
       const task = taskInput.value;
