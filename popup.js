@@ -23,7 +23,15 @@ document.addEventListener('DOMContentLoaded', function() {
           // Use the Clipboard API to copy the text to the clipboard
           navigator.clipboard.writeText(extractedText)
             .then(() => {
-              alert('Text copied!');
+              const imgElement = clipboardButton.querySelector('img');
+
+              // Change the src attribute to images/check.png
+              imgElement.src = 'images/check.png';
+
+              // Set a timeout to revert the src attribute after two seconds
+              setTimeout(function () {
+                imgElement.src = 'images/clipboard.png';
+              }, 2000);
             })
             .catch((err) => {
               console.error('Unable to copy text to clipboard', err);
@@ -48,16 +56,15 @@ document.addEventListener('DOMContentLoaded', function() {
   
       // Iterate through text nodes and concatenate their text content
       while (textNodes.nextNode()) {
-          extractedText += textNodes.currentNode.nodeValue.trim() + ' ';
+        const nodeValue = textNodes.currentNode.nodeValue.trim();
+        if (nodeValue !== '') {
+          extractedText += nodeValue + '\n';
+        }
       }
       return extractedText.trim();
   }
   
-  // Example usage with your provided HTML string
-  const htmlString = "<h2>Materials List for Carpet Installation</h2>\n<ul>...</ul>\n<p>Rental equipment from Home Depot:</p>\n<ul>...</ul>";
   
-  const extractedText = extractTextFromHTML(htmlString);
-  console.log(extractedText);
   
 
     // Load the persisted text when the popup is opened
