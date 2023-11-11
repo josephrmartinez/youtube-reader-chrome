@@ -1,23 +1,29 @@
-  const textField = document.createElement("input");
-  textField.type = "text";
-  textField.id = "myTextField"; // Add an ID to access this element later
 
-  const button = document.createElement("button");
-  button.textContent = "Generate";
-  // button.classList.add("yt-spec-touch-feedback-shape__fill")
-  button.id = "myButton"; // Add an ID to access this element later
+var parentDiv = document.getElementById("secondary"); // the parent div
+var newDiv = document.createElement("div"); // the new div to be inserted
+newDiv.textContent = "This is a new div";
+
+if (parentDiv.firstChild) {
+ parentDiv.insertBefore(newDiv, parentDiv.firstChild);
+} else {
+ parentDiv.appendChild(newDiv);
+}
+
   
-  button.addEventListener("click", function () {
-    // Add your code here to generate a blog post or perform any other action
-    alert("Button clicked!");
-  });
+// const textField = document.createElement("input");
+// textField.type = "text";
+// textField.id = "myTextField"; // Add an ID to access this element later
 
-  const player = document.getElementById("player");
-  player.insertAdjacentElement("afterend", textField);
-  player.insertAdjacentElement("afterend", button);
+// const button = document.createElement("button");
+// button.textContent = "Generate";
+// // button.classList.add("yt-spec-touch-feedback-shape__fill")
+// button.id = "myButton"; // Add an ID to access this element later
 
-  // const body = document.body;
-  // body.prepend(textField, button);
+// button.addEventListener("click", function () {
+//   // Add your code here to generate a blog post or perform any other action
+//   alert("Button clicked!");
+// });
+
 
 
 
