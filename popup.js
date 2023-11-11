@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const taskInput = document.getElementById('taskInput');
     const generateButton = document.getElementById('generateButton');
     const trashButton = document.getElementById('trash')
-    
+    const clipboardButton = document.getElementById('clipboard');
 
     trashButton.addEventListener('click', function(){
       chrome.storage.local.remove('persistedText', function() {
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 
 
-    const clipboardButton = document.getElementById('clipboard');
+    
 
     clipboardButton.addEventListener('click', function(){
       chrome.storage.local.get(['persistedText'], function(result) {
@@ -82,11 +82,12 @@ document.addEventListener('DOMContentLoaded', function() {
       const task = taskInput.value;
       chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         const videoId = extractVideoId(tabs[0].url);
-        if (videoId) {
+        if (videoId && task) {
           // Send data to the API endpoint
           sendDataToAPI(videoId, task);
+          taskInput.value = "";
         } else {
-          console.error('Failed to extract video ID from the YouTube page URL');
+          console.error('Failed to extract video ID from the YouTube page URL or no task defined');
         }
       });
     });
@@ -100,6 +101,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     function sendDataToAPI(videoId, task) {
+      const generateButtonImg = generateButton.querySelector('img');
+
+      // Change the src attribute to the loading indicator
+      generateButtonImg.src = 'images/spinner-gap.png';
+      generateButtonImg.classList.add('loading-spinner');
+
       fetch('http://127.0.0.1:8000/api/perform-task', {
         method: 'POST',
         headers: {
@@ -119,8 +126,13 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
           console.error('Error:', error);
+        })
+        .finally(() => {
+          // Revert the src attribute after fetch request complete
+          generateButtonImg.classList.remove('loading-spinner');
+          generateButtonImg.src = 'images/send.png'
         });
-    }
+  }
 
 
     // Function to update the text in your popup
