@@ -1,13 +1,13 @@
 
-var parentDiv = document.getElementById("secondary"); // the parent div
-var newDiv = document.createElement("div"); // the new div to be inserted
-newDiv.textContent = "This is a new div";
+// var parentDiv = document.getElementById("secondary"); // the parent div
+// var newDiv = document.createElement("div"); // the new div to be inserted
+// newDiv.textContent = "This is a new div";
 
-if (parentDiv.firstChild) {
- parentDiv.insertBefore(newDiv, parentDiv.firstChild);
-} else {
- parentDiv.appendChild(newDiv);
-}
+// if (parentDiv.firstChild) {
+//  parentDiv.insertBefore(newDiv, parentDiv.firstChild);
+// } else {
+//  parentDiv.appendChild(newDiv);
+// }
 
   
 // const textField = document.createElement("input");

@@ -85,7 +85,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (videoId && task) {
           // Send data to the API endpoint
           sendDataToAPI(videoId, task);
-          taskInput.value = "";
         } else {
           console.error('Failed to extract video ID from the YouTube page URL or no task defined');
         }
@@ -101,6 +100,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     function sendDataToAPI(videoId, task) {
+      updatePopupText("")
+      
       const generateButtonImg = generateButton.querySelector('img');
 
       // Change the src attribute to the loading indicator
@@ -128,6 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
           console.error('Error:', error);
         })
         .finally(() => {
+          taskInput.value = "";
           // Revert the src attribute after fetch request complete
           generateButtonImg.classList.remove('loading-spinner');
           generateButtonImg.src = 'images/send.png'
