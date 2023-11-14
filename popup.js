@@ -113,10 +113,12 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(data => {
         // Handle the response from your server...
         const completionText = data.completion.text;
+        const cost = data.completion.cost
 
         // Save the text to local storage
         chrome.storage.local.set({ 'persistedText': completionText }, function() {
           updatePopupText(completionText);
+          updateCost(cost)
         });
       })
       .catch(error => {
@@ -139,5 +141,14 @@ document.addEventListener('DOMContentLoaded', () => {
       popupTextElement.innerHTML = text;
       }
   }
+
+  // Function to update the cost indicator in your popup
+  function updateCost(cost) {
+    // Assuming you have an element with the ID "popupText" to display the text
+    const popupCostElement = document.getElementById('cost');
+    if (popupCostElement) {
+      popupCostElement.innerText = `Cost: ${cost}`;
+    }
+}
 
   });
