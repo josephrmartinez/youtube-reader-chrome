@@ -112,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(response => response.json())
       .then(data => {
         // Handle the response from your server...
+        console.log("response data:", data)
         const completionText = data.completion.text;
         const cost = data.completion.cost
 
@@ -147,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Assuming you have an element with the ID "popupText" to display the text
     const popupCostElement = document.getElementById('cost');
     if (popupCostElement) {
-      popupCostElement.innerText = `Cost: ${cost}`;
+      popupCostElement.innerText = `Cost: $${cost}`;
     }
 }
 
