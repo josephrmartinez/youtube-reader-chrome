@@ -104,11 +104,18 @@ img{
 
 #cost{
     height: 2rem;
-    width: 100%;
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    align-items: center;
+    width: max-content;
     text-align: left;
-    margin-left: 2rem;
-    font-size: medium;
+    align-self: flex-start;
+    margin-top: 8px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    font-size: small;
     font-weight: 600;
+    background-color: yellow
 }
 
 h1 {
@@ -139,7 +146,7 @@ h1 {
     font-size: 1rem;
     color:rgb(42, 59, 59);
     font-family:Georgia, 'Times New Roman', Times, serif;
-    padding-inline-start: 20px;
+
   }
 
   li {

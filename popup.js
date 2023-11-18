@@ -5,17 +5,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const clipboardButton = document.getElementById('clipboard');
 
   trashButton.addEventListener('click', () => {
-    chrome.storage.local.remove('persistedText', () => {
+    chrome.storage.local.remove(['completionText', 'cost'], () => {
       // After removing the item, update the popup text
       updatePopupText('');
+      updateCost('');
     });
   });
 
   clipboardButton.addEventListener('click', () => {
-    chrome.storage.local.get(['persistedText'], (result) => {
-      const persistedText = result.persistedText;
-      if (persistedText) {
-        const extractedText = extractTextFromHTML(persistedText);
+    chrome.storage.local.get(['completionText'], (result) => {
+      const completionText = result.completionText;
+      if (completionText) {
+        const extractedText = extractTextFromHTML(completionText);
         
         // Use the Clipboard API to copy the text to the clipboard
         navigator.clipboard.writeText(extractedText)
@@ -63,10 +64,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // Load the persisted text when the popup is opened
-  chrome.storage.local.get(['persistedText'], (result) => {
-    const persistedText = result.persistedText;
-    if (persistedText) {
-      updatePopupText(persistedText);
+  chrome.storage.local.get(['completionText', 'cost'], (result) => {
+    const completionText = result.completionText;
+    const cost = result.cost;
+    if (completionText) {
+      updatePopupText(completionText);
+    }
+    if (cost) {
+      updateCost(cost)
     }
   });
 
@@ -95,6 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function sendDataToAPI(videoId, task) {
     updatePopupText("")
+    updateCost('')
     
     const generateButtonImg = generateButton.querySelector('img');
 
@@ -114,10 +120,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Handle the response from your server...
         console.log("response data:", data)
         const completionText = data.completion.text;
-        const cost = data.completion.cost
+        
+        const costString = data.completion.cost
+        const cost = parseFloat(costString).toFixed(5)
 
         // Save the text to local storage
-        chrome.storage.local.set({ 'persistedText': completionText }, function() {
+        chrome.storage.local.set({ 'completionText': completionText, 'cost': cost }, function() {
           updatePopupText(completionText);
           updateCost(cost)
         });
@@ -147,8 +155,10 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateCost(cost) {
     // Assuming you have an element with the ID "popupText" to display the text
     const popupCostElement = document.getElementById('cost');
-    if (popupCostElement) {
-      popupCostElement.innerText = `Cost: $${cost}`;
+    if (!cost){
+      popupCostElement.innerText = '';
+    } else {
+      popupCostElement.innerText = ` Cost: $${cost} `;
     }
 }
 
